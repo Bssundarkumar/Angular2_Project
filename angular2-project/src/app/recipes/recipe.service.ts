@@ -8,6 +8,8 @@ import { Subject } from 'rxjs/Subject';
 export class RecipeService{
        recipeSelected = new EventEmitter<Recipe>();
       recipeChanged=new Subject<Recipe[]>();
+
+      
     private recipesList: Recipe[] = [
         new Recipe('A Test Recipe', 'This is simply a test', 
         'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg',
@@ -21,6 +23,10 @@ export class RecipeService{
       ])
       ];
       constructor(private slService:ShoppingListService){}
+      setRecipies(recipes:Recipe[]){
+        this.recipesList=recipes;
+        this.recipeChanged.next(this.recipesList.slice());
+      }
       getRecipes(){
         return this.recipesList.slice();
       }
@@ -44,4 +50,6 @@ export class RecipeService{
         this.recipesList.splice(index,1);
         this.recipeChanged.next(this.recipesList.slice());
       }
+
+     
 }
