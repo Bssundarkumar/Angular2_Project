@@ -6,6 +6,9 @@ import { ShoppingListComponent } from "./shopping-list/shopping-list.component";
 import { RecipeStartComponent } from "./recipes/recipe-start/recipe-start.component";
 import { RecipeDetailComponent } from "./recipes/recipe-detail/recipe-detail.component";
 import { RecipeEditComponent } from "./recipes/recipe-edit/recipe-edit.component";
+import { SignupComponent } from "./auth/signup/signup.component";
+import { SigninComponent } from "./auth/signin/signin.component";
+import { AuthGaurd } from "./auth/auth-gaurd.service";
 
 
 
@@ -13,11 +16,13 @@ const appRoutes: Routes=[
 {path:'',redirectTo: '/recipes', pathMatch:'full'},
 {path:'recipes', component: RecipesComponent,children:[
     {path:'', component: RecipeStartComponent},
-    {path:'newrecipe',component:RecipeEditComponent},
+    {path:'newrecipe',component:RecipeEditComponent, canActivate:[AuthGaurd]},
     {path:':id',component: RecipeDetailComponent},
-    {path:':id/edit',component:RecipeEditComponent}
+    {path:':id/edit',component:RecipeEditComponent,canActivate:[AuthGaurd]}
 ]},
-{path:'shopping-list', component: ShoppingListComponent}
+{path:'shopping-list', component: ShoppingListComponent},
+{path:'signup', component:SignupComponent},
+{path:'signin', component:SigninComponent}
 ];
 
 @NgModule({
